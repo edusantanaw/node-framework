@@ -1,3 +1,5 @@
+import { RouterMethods } from "../@types/router-methods";
+
 type IRoutes = {
   method: RouterMethods;
   route: string;
@@ -16,6 +18,7 @@ type Args = (req: any, res: any, next?: any) => void;
 
 class Router implements IRouter {
   private routes: IRoutes[] = [];
+
   get(route: string, ...args: Args[]): void {
     this.registerRoute(route, RouterMethods.GET, args);
   }
@@ -55,3 +58,5 @@ class Router implements IRouter {
     }
   }
 }
+
+export default new Router();

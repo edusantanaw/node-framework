@@ -1,4 +1,4 @@
-enum RouterMethods {
+export enum RouterMethods {
   "GET",
   "POST",
   "PUT",
