@@ -1,6 +1,6 @@
 import http from "node:http";
 import { buildRequestObj } from "./buildRequest";
-import { RouterMethods } from "../@types/router-methods";
+import { RouterMethods } from "../enums/router-methods";
 import { Response } from "../@types/Response";
 import { HttpResponse } from "../http/Response";
 import Router from "../dataStructs/Router";
