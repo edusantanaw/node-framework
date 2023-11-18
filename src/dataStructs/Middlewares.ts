@@ -1,3 +1,5 @@
+import { Args } from "../@types/Args";
+import { HttpResponse } from "../http/Response";
 import { Node } from "./Node";
 
 export class Middlewares {
@@ -28,7 +30,7 @@ export class Middlewares {
       }
     }
   
-    private startExecute(node: Node, req: any, res: any) {
+    private startExecute(node: Node, req: any, res: any): Promise<HttpResponse> | HttpResponse {
       if (node.next === null) {
         return node.func(req, res);
       } else {

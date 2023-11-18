@@ -7,7 +7,7 @@ import { HttpResponse } from "../http/Response";
 
 export default async (req: http.IncomingMessage, res: Response) => {
   const httpResponse = new HttpResponse();
-  const httpRequest = await new BuildHttpRequest(req).build()
+  const httpRequest = await new BuildHttpRequest(req).build();
   const routes = Router.getRoutes();
   const method = httpRequest.method;
   const mayRoute = routes.filter(
@@ -17,14 +17,13 @@ export default async (req: http.IncomingMessage, res: Response) => {
   );
 
   if (mayRoute.length === 0) responseHandle(httpResponse, res);
-  const response = (await mayRoute[0].handles.executeAll(
-    httpRequest,
-    httpResponse
-  )) as any;
+  await mayRoute[0].handles.executeAll(httpRequest, httpResponse);
   responseHandle(httpResponse, res);
 };
 
 function responseHandle(httpResponse: HttpResponse, res: Response) {
-  res.writeHead(httpResponse.statusCode, { "Content-type": "application/json" });
+  res.writeHead(httpResponse.statusCode, {
+    "Content-type": "application/json",
+  });
   res.end(httpResponse.data);
 }
