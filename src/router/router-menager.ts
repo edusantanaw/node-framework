@@ -2,8 +2,8 @@ import http from "node:http";
 import Router from "./router";
 import { buildRequestObj } from "./buildRequest";
 import { RouterMethods } from "../@types/router-methods";
-
-interface Response extends http.ServerResponse<http.IncomingMessage> {}
+import { Response } from "../@types/Response";
+import { HttpResponse } from "../http/Response";
 
 export default async (req: http.IncomingMessage, res: Response) => {
   const routes = Router.getRoutes();
@@ -14,13 +14,17 @@ export default async (req: http.IncomingMessage, res: Response) => {
       RouterMethods[route.method]!.toLowerCase() === method!.toLowerCase() &&
       requestObj.path
   );
-  if (mayRoute.length === 0) responseHandle(res, 404, "Not Found");
+  const httpResponse = new HttpResponse();
+  if (mayRoute.length === 0) responseHandle(httpResponse, res);
   console.log(mayRoute[0]);
-  const response = await mayRoute[0].handles.executeAll(requestObj, res) as any;
-  responseHandle(response, 200, "OK");
+  const response = (await mayRoute[0].handles.executeAll(
+    requestObj,
+    httpResponse
+  )) as any;
+  responseHandle(httpResponse, res);
 };
 
-function responseHandle(res: Response, statusCode: string | number, data: any) {
-  res.writeHead(Number(statusCode), { "Content-type": "application/json" });
-  res.end(data);
+function responseHandle(httpResponse: HttpResponse, res: Response) {
+  res.writeHead(httpResponse.statusCode, { "Content-type": "application/json" });
+  res.end(httpResponse.data);
 }

@@ -1,14 +1,15 @@
 import http from "http";
 import routerMenager from "./router/router-menager";
 import router from "./router/router";
+import { HttpResponse } from "./http/Response";
 
 const PORT = 3000;
 
 const server = http.createServer();
 
-router.post("/ola", (req, res)=> {
+router.post("/ola", (req, res: HttpResponse)=> {
   console.log(req.body);
-  return res
+  return res.status(201).json(req.body)
 })
 
 server.on("request", async (req, res) => {
