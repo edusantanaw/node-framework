@@ -17,7 +17,7 @@ class Node {
 class Middlewares {
   private HEAD: Node | null = null;
 
-  constructor(args: Args[]) {
+  constructor(args: Args[] = []) {
     args.forEach((e) => {
       this.add(e);
     });
@@ -38,14 +38,13 @@ class Middlewares {
 
   executeAll(req: any, res: any) {
     if (this.HEAD) {
-     return this.startExecute(this.HEAD, req, res);
+      return this.startExecute(this.HEAD, req, res);
     }
   }
 
   private startExecute(node: Node, req: any, res: any) {
-    console.log(this.HEAD);
-    if (node.next !== null) {
-     return node.func(req, res);
+    if (node.next === null) {
+      return node.func(req, res);
     } else {
       return node.func(req, res, () => this.startExecute(node.next!, req, res));
     }

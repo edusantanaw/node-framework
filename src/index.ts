@@ -6,9 +6,10 @@ const PORT = 3000;
 
 const server = http.createServer();
 
-router.get("/ola", (req, res) => {
-  return res;
-});
+router.post("/ola", (req, res)=> {
+  console.log(req.body);
+  return res
+})
 
 server.on("request", async (req, res) => {
   await routerMenager(req, res);
