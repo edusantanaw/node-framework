@@ -15,7 +15,7 @@ export async function buildRequestObj(req: http.IncomingMessage) {
 
 function getBody(req: http.IncomingMessage) {
   let data = "";
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     req.on("data", (chunk) => {
       data += chunk;
     });
