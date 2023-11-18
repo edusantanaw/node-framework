@@ -1,13 +1,13 @@
 import http from "http";
 import routerMenager from "./router/router-menager";
-import router from "./router/router";
 import { HttpResponse } from "./http/Response";
+import Router from "./dataStructs/Router";
 
 const PORT = 3000;
 
 const server = http.createServer();
 
-router.post("/ola", (req, res: HttpResponse)=> {
+Router.post("/ola", (req, res: HttpResponse)=> {
   console.log(req.body);
   return res.status(201).json(req.body)
 })
