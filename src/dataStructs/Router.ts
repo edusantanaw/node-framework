@@ -1,5 +1,6 @@
 import { RouterMethods } from "../enums/router-methods";
 import { Middlewares } from "../dataStructs/Middlewares";
+import { Args } from "../@types/Args";
 
 type IRoutes = {
   method: RouterMethods;

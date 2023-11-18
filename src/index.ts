@@ -7,10 +7,16 @@ const PORT = 3000;
 
 const server = http.createServer();
 
-Router.post("/ola", (req, res: HttpResponse)=> {
-  console.log(req.body);
-  return res.status(201).json(req.body)
-})
+Router.post(
+  "/ola",
+  async (req, res, next) => {
+    return next!()
+  },
+  async (req, res: HttpResponse) => {
+    console.log(req.body);
+    return res.status(201).json(req.body);
+  }
+);
 
 server.on("request", async (req, res) => {
   await routerMenager(req, res);
