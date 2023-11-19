@@ -8,6 +8,14 @@ const PORT = 3000;
 const server = http.createServer();
 
 Router.post(
+  "/test",
+  async (req, res: HttpResponse) => {
+    console.log(req.body);
+    console.log("test");
+    return res.status(201).json(req.body);
+  }
+);
+Router.post(
   "/ola",
   async (req, res, next) => {
     return next!()

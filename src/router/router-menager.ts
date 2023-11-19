@@ -13,10 +13,13 @@ export default async (req: http.IncomingMessage, res: Response) => {
   const mayRoute = routes.filter(
     (route) =>
       RouterMethods[route.method]!.toLowerCase() === method!.toLowerCase() &&
-      httpRequest.path
+      httpRequest.path === route.route
   );
-
-  if (mayRoute.length === 0) responseHandle(httpResponse, res);
+  if (mayRoute.length === 0) {
+    httpResponse.status(404).json("Not Found");
+    responseHandle(httpResponse, res);
+    return;
+  }
   await mayRoute[0].handles.executeAll(httpRequest, httpResponse);
   responseHandle(httpResponse, res);
 };
