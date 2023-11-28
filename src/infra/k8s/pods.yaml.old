@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: framework
+spec: 
+  containers:
+    - name: framework
+      image: sha256:d05b1953867e93d375876e1f6a31effd71709608577db810a78f79f69636a6bb
+    

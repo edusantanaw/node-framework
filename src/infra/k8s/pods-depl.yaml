@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: framework-depl
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: framework
+  template: 
+    metadata:
+      labels:
+        app: framework
+    spec: 
+      containers: 
+        - name: framework
+          image: sha256:d05b1953867e93d375876e1f6a31effd71709608577db810a78f79f69636a6bb
